@@ -41,5 +41,5 @@ Aqui estão meus principais projetos organizados por categoria. Clique no nome d
 
 Sinta-se à vontade para entrar em contato para discutir sobre dados ou oportunidades.
 
-* [LinkedIn](https://www.linkedin.com/in/sergio-luiz-cust%C3%B3dio-rezende-3b6ba616/)
+* [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sergio-luiz-cust%C3%B3dio-rezende-3b6ba616/)
 * [![Email Badge](https://img.shields.io/badge/Email-sergiolcrezende%40gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:sergiolcrezende@gmail.com)
