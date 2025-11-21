@@ -1,0 +1,8 @@
+#baixar a base do kaggle pois tem tamanho e superior a 140MB
+
+https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
+
+
+#passos
+1- baixar do site do kaggle - 'creditcard.csv'
+2- copiar para o diretório 'base'
