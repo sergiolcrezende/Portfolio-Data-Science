@@ -18,12 +18,12 @@ Bem-vindo ao meu portfólio profissional! Aqui você encontrará projetos práti
 
 Aqui estão meus principais projetos organizados por categoria. Clique no nome do projeto para ver os detalhes, códigos e resultados.
 
-### 1. [Análise e Detecção de Fraudes](./projeto1_fraude)
-* **O Problema:** Identificar transações fraudulentas em cartões de crédito em tempo real.
+### 1. [Análise e Detecção de Fraudes](./Credit_Card_Fraud_Detection)
+* **O Problema:** Identificar transações fraudulentas em cartões de crédito.
 * **A Solução:** Modelo preditivo usando Random Forest.
 * **Resultados:** 98% de acurácia na detecção de anomalias.
 * **Tecnologias:** Python, Pandas, Scikit-Learn.
-
+<!--
 ### 2. [Automação de Processos com N8N](./projeto2_automacao)
 * **O Problema:** Necessidade de integrar leads de vendas com CRM automaticamente.
 * **A Solução:** Workflow completo no N8N processando dados via Webhook.
@@ -32,6 +32,8 @@ Aqui estão meus principais projetos organizados por categoria. Clique no nome d
 ### 3. [Web Scraping para Monitoramento](./projeto3_scraping)
 * **Descrição:** Bot desenvolvido em Python para extrair dados de sites imobiliários e gerar relatórios de preços.
 * **Tecnologias:** Selenium, BeautifulSoup.
+
+-->
 
 ---
 
