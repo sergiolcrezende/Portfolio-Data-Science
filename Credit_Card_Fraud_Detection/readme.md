@@ -3,7 +3,7 @@
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
 ![Status](https://img.shields.io/badge/Status-Concluído-success)
 ![Libs](https://img.shields.io/badge/Libs-Scikit--Learn%20|%20XGBoost%20|%20Pandas-yellow)
-**🗐[🗐Ver Código Fonte do Projeto](https://github.com/sergiolcrezende/Portfolio-Data-Science/tree/main/Credit_Card_Fraud_Detection)**
+**[🗐Ver Código Fonte do Projeto](https://github.com/sergiolcrezende/Portfolio-Data-Science/tree/main/Credit_Card_Fraud_Detection)**
 
 > **Resumo Executivo:** Este projeto aborda o problema de desbalanceamento severo (0,17% de fraudes) em transações financeiras. A solução final utiliza um modelo **XGBoost com técnica SMOTE**, priorizando a métrica **Recall** para minimizar prejuízos financeiros. O estudo revelou um insight de negócio crítico: transações realizadas na madrugada possuem risco relativo 7,5x maior.
 
@@ -85,6 +85,7 @@ Além do modelo preditivo, a análise dos dados sugere ações imediatas para a 
    ```bash
 
    pip install -r requirements.txt
+
 
 
 
