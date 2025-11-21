@@ -41,5 +41,5 @@ Aqui estão meus principais projetos organizados por categoria. Clique no nome d
 
 Sinta-se à vontade para entrar em contato para discutir sobre dados ou oportunidades.
 
-* [LinkedIn](SEU_LINK_DO_LINKEDIN)
-* [Email](mailto:seu_email@exemplo.com)
+* [LinkedIn](https://www.linkedin.com/in/sergio-luiz-cust%C3%B3dio-rezende-3b6ba616/))
+* [Email](mailto:sergiolcrezende@gmail.com)
