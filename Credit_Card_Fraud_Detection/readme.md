@@ -3,7 +3,7 @@
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
 ![Status](https://img.shields.io/badge/Status-Concluído-success)
 ![Libs](https://img.shields.io/badge/Libs-Scikit--Learn%20|%20XGBoost%20|%20Pandas-yellow)
-**[🗐Ver Código Fonte do Projeto](https://github.com/sergiolcrezende/Portfolio-Data-Science/tree/main/Credit_Card_Fraud_Detection)**
+
 <font size="5">
 [📄 Ver Código Fonte do Projeto](https://github.com/sergiolcrezende/Portfolio-Data-Science/tree/main/Credit_Card_Fraud_Detection)
 </font>
@@ -88,6 +88,7 @@ Além do modelo preditivo, a análise dos dados sugere ações imediatas para a 
    ```bash
 
    pip install -r requirements.txt
+
 
 
 
