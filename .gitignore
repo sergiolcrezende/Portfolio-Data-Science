@@ -1,0 +1,10 @@
+#ignorar arquivos
+\#leiame.txt
+\#fazer.txt
+\#linkedln-mgs.txt
+\#projeto-cv.txt
+README-not.md
+sergio.github.io.code-workspace
+
+#ignorar diretorio
+.temp/

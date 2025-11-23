@@ -1,0 +1,8 @@
+pandas
+scipy==1.16.2
+matplotlib-inline==0.2.1
+seaborn 
+scikit-learn==1.7.2
+imblearn
+xgboost
+jinja2

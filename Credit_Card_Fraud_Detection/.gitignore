@@ -1,0 +1,19 @@
+# Ignorar ambientes virtuais e cache
+.venv/
+__pycache__/
+*.pyc
+
+# Ignorar suas pastas de rascunho (Adicione estas linhas!)
+.nova_versao/
+.temp/
+**/creditcard.csv
+*.csv
+
+# Ignorar arquivos de texto de anotações
+\#fazer.txt
+\#leia-me.txt
+\#levantamento.txt
+fraude.code-workspace
+
+# Ignorar backups
+bkp-fraude_cartao.py
