@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  # --- APENAS A API (O n8n você já tem rodando fora daqui) ---
+  api_vendas:
+    build: .
+    container_name: api_previsao_vendas
+    restart: always
+    ports:
+      - "8001:8000"  # Exposta na 8001 para não conflitar com nada
+    volumes:
+      - ./models:/app/models
+      - ./data:/app/data
+      - ./src:/app/src 
+    environment:                 
+      - PYTHONDONTWRITEBYTECODE=1   # não cria o diretorio __pycache__
+    env_file:
+      - .env
+    networks:
+      - minha_rede_dados
+
+# Rede interna (necessária para o Docker funcionar)
+networks:
+  minha_rede_dados:
+    driver: bridge

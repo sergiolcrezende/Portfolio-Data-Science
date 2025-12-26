@@ -1,0 +1,956 @@
+{
+  "name": "api_python_recommend-purchase-sheet",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "9374175d-7b42-47bf-b73b-9d725f964f99",
+      "name": "Ao clicar em Testar",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "=item_id",
+              "value": 1
+            },
+            {
+              "name": "=store_id",
+              "value": 1
+            },
+            {
+              "name": "days_ahead",
+              "value": 7
+            }
+          ],
+          "string": [
+            {
+              "name": "id",
+              "value": "1"
+            },
+            {
+              "name": "start_date",
+              "value": "2018-01-01"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "12e25c16-dee5-4c81-87d2-e3cc2e5fad37",
+      "name": "Definir Cenário",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        80,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        176,
+        -48
+      ],
+      "id": "a4c1cc9e-b60f-4855-af05-ee77f2d36fd4",
+      "name": "baixar entrada_nova"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "triggerOn": "specificFolder",
+        "folderToWatch": {
+          "__rl": true,
+          "value": "1laCF_i3QgvH_nDkPhVaKndxcLRxJEGYm",
+          "mode": "list",
+          "cachedResultName": "_n8n_raw_retail_demand_forecasting",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1laCF_i3QgvH_nDkPhVaKndxcLRxJEGYm"
+        },
+        "event": "fileUpdated",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDriveTrigger",
+      "typeVersion": 1,
+      "position": [
+        -384,
+        -64
+      ],
+      "id": "e54df23a-916b-4d33-b97c-c9efc11e91aa",
+      "name": "ler o diretório do extrato",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "Tiyz5fiSfJR23U3M",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -48,
+        -48
+      ],
+      "id": "5c593bb3-eaae-4391-b382-df18330fc98c",
+      "name": "ler planilha com novos dados",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "Tiyz5fiSfJR23U3M",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"store_id\": {{ $json.store }},\n  \"item_id\": {{ $json.item }},\n  \"start_date\": \"{{ $json.date }}\",\n  \"days_ahead\": 7,\n  \"estoque_atual\":{{ $json.estoque_atual }}\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        432,
+        -32
+      ],
+      "id": "7ef862ae-1f53-4c05-8e60-8657a752b8a1",
+      "name": "tratar campos"
+    },
+    {
+      "parameters": {
+        "content": "## execução manual \n",
+        "height": 272,
+        "width": 816,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -480,
+        208
+      ],
+      "typeVersion": 1,
+      "id": "2f7b1fd5-b649-4b41-81d0-68d388344e45",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## schedule \n",
+        "height": 320,
+        "width": 304
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -480,
+        -160
+      ],
+      "typeVersion": 1,
+      "id": "0aa7e512-99d1-41d5-8408-6a35dfb5cdbc",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## ler novos registros e trata campos",
+        "height": 320,
+        "width": 832,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -144,
+        -160
+      ],
+      "typeVersion": 1,
+      "id": "d6dce578-2095-426a-8be9-4c2a030605ad",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## prepara o arquivo para gravar\n",
+        "height": 768,
+        "width": 1360,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        704,
+        -160
+      ],
+      "typeVersion": 1,
+      "id": "ac0dd25a-641d-429b-9cfc-7617ec2fd7da",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "## gravar arquivo\n",
+        "height": 688,
+        "width": 1328,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2112,
+        -64
+      ],
+      "typeVersion": 1,
+      "id": "3559fc59-b4da-456d-98a9-db3972e766fb",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "**#R1**\nA ativação pode ser manual ou por schedule\n\nManual: quando for testar com valores individuais\nSchedule: quando for tiver base com novas informações de vendas para fazer previsão.\n\n",
+        "height": 304,
+        "width": 288,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -480,
+        -496
+      ],
+      "typeVersion": 1,
+      "id": "b79dee1e-6b12-4634-b3d9-88ffc08f516f",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "**#R2**\nQuando estiver utiliando o trigger de schedule os arquivos será extraido do dirtório do google drive definido para o projeto. \nDepois que o novo arquivo foi disponibilizado ocorrerá os seguintes fluxos:\n1- Ler a planilha gerada\n2- Baixar a planilha\n3- Tratar os campos que serão utilizados \n4- Fazer a interação dos campos que foram disponibilizados\n\n\n\n",
+        "height": 304,
+        "width": 832,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -144,
+        -496
+      ],
+      "typeVersion": 1,
+      "id": "67facc94-a3f0-4384-8fc3-44fcdb95531a",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "**#R3**\nQuando as informações estiverem disponibilizadas para a API tratar ocorrerá os seguintes passos:\n1- Todos os registros serão enviados para a API que vai fazer a previsão para os próximos 7 dias\n2- O retorno da API enviar as predições\n3- Será carregado o arquivo dos os dados que estão na memória.\n     Vai um fluxo para o nó de merge do arquivo disponivel.\n4- Vai verificar se o arquivo que será gravado no google drive existe\n5- IF existir vai excluir, caso contrario não faz nada\n\n",
+        "height": 304,
+        "width": 1312,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        752,
+        -496
+      ],
+      "typeVersion": 1,
+      "id": "989790b0-f10b-4099-8b81-7130ffc4a774",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "content": "**#R4**\n1- Faz o merge entre a exclusão do arquivo se existir e o envio do arquivo novo\n2- Cria o novo  arquivo no diretório do google drive\n\n",
+        "height": 304,
+        "width": 608,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2128,
+        -496
+      ],
+      "typeVersion": 1,
+      "id": "d4dc6550-ff17-4b73-a143-5b347a5ba576",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:8001/recommend-purchase",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "=[\n  {\n    \"store_id\": {{ $('tratar campos').item.json.store_id }},\n    \"item_id\":{{ $('tratar campos').item.json.item_id }},\n    \"date\": \"{{ $('tratar campos').item.json.start_date }}\",\n    \"estoque_atual\":{{ $json.estoque_atual }}\n  }\n]\n",
+        "options": {}
+      },
+      "id": "86e04db9-9588-4bb5-b20c-a6327ce93945",
+      "name": "Chamar API Python",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        784,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "749558a3-e7d1-4815-b388-009909f29e0b",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1808,
+        192
+      ],
+      "id": "9c7d7b7a-5c63-4951-8076-a8459921835e",
+      "name": "verifica se existe o arquivo1"
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "queryString": "resultado_final_retail-demand-forescasting",
+        "limit": 1,
+        "filter": {
+          "driveId": {
+            "mode": "list",
+            "value": "My Drive"
+          },
+          "folderId": {
+            "__rl": true,
+            "value": "1C_TdXsb4V-0Thoa2hazn8cES5PqcstfJ",
+            "mode": "list",
+            "cachedResultName": "_n8n_previsao_retail_demand_forecasting",
+            "cachedResultUrl": "https://drive.google.com/drive/folders/1C_TdXsb4V-0Thoa2hazn8cES5PqcstfJ"
+          }
+        },
+        "options": {
+          "fields": [
+            "id"
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1520,
+        144
+      ],
+      "id": "2feae649-b96a-488b-af8d-3c79d3eab9a6",
+      "name": "Search files and folders -arquivo gerado1",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "Tiyz5fiSfJR23U3M",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2560,
+        272
+      ],
+      "id": "bf00c2fe-fa94-428f-b9e4-e6b513e5ec5e",
+      "name": "Wait1",
+      "webhookId": "f668c13a-3ce4-4e3c-a0f0-0f3e4ae2f4d8"
+    },
+    {
+      "parameters": {
+        "resource": "spreadsheet",
+        "title": "resultado_final_retail-demand-forecasting",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        3888,
+        1120
+      ],
+      "id": "abb7bb86-2920-428e-aa03-2c6dee043180",
+      "name": "Create spreadsheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Xf7wuuJ78W7Z48CN",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "[arquivo destino](https://drive.google.com/drive/folders/1C_TdXsb4V-0Thoa2hazn8cES5PqcstfJ)\n\n[relatório](https://lookerstudio.google.com/u/0/reporting/cfa00d85-1c39-4f42-923b-6422ea22bfe5/page/WfhjF?s=vAh2HIWZIfk)"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -784,
+        -464
+      ],
+      "typeVersion": 1,
+      "id": "b12647b7-35ba-4e74-90b3-1b98bfe11053",
+      "name": "Sticky Note9"
+    },
+    {
+      "parameters": {
+        "operation": "clear",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Sheet",
+          "mode": "name"
+        },
+        "clear": "specificRange",
+        "range": "A2:Z"
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2256,
+        48
+      ],
+      "id": "2d4801ed-992c-46b1-a7c2-d7573fb71152",
+      "name": "limpar planilha",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Xf7wuuJ78W7Z48CN",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "copy",
+        "fileId": {
+          "__rl": true,
+          "value": "1-8tzYoHGh8bxGQ1WO8YX4qwixyc_AhiDHzSaBNHNCrU",
+          "mode": "list",
+          "cachedResultName": "_MODELO_Retail_Forecast",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-8tzYoHGh8bxGQ1WO8YX4qwixyc_AhiDHzSaBNHNCrU/edit?usp=drivesdk"
+        },
+        "name": "resultado_final_retail-demand-forescasting",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        2272,
+        224
+      ],
+      "id": "c6adefa6-d8d1-412f-95b6-e7d9cebac34d",
+      "name": "copiar modelo",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "Tiyz5fiSfJR23U3M",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f603138d-021d-465e-a15f-c9c9a9a5d06e",
+              "name": "DATA",
+              "value": "={{ $json['detalhes[0].data'] }}",
+              "type": "string"
+            },
+            {
+              "id": "1f9486a2-76df-49b8-a48c-1beb43b76bd7",
+              "name": "LOJA",
+              "value": "={{ $json.detalhes[0].loja }}",
+              "type": "number"
+            },
+            {
+              "id": "3f44e92d-7f87-4ca7-85f8-f0502bdacd47",
+              "name": "PRODUTO",
+              "value": "={{ $json.detalhes[0].produto }}",
+              "type": "number"
+            },
+            {
+              "id": "de276152-52fc-41c7-af79-ed13d35a80f3",
+              "name": "PREVISAO_VENDAS",
+              "value": "={{ $json.detalhes[0].venda_prevista }}",
+              "type": "number"
+            },
+            {
+              "id": "15d6f7bb-2765-4130-8da2-233c4053ba2d",
+              "name": "MARGEM_SEGURANCA",
+              "value": "={{ $json.detalhes[0].MARGEM_SEGURANCA }}",
+              "type": "number"
+            },
+            {
+              "id": "3a49a1bd-616a-430b-9f7a-109b27d7bb1c",
+              "name": "ESTOQUE_ALVO",
+              "value": "={{ $json.detalhes[0].ESTOQUE_ALVO }}",
+              "type": "number"
+            },
+            {
+              "id": "037226a9-4f7e-406e-8f1e-f7223a0ff8ea",
+              "name": "ESTOQUE_LOJA",
+              "value": "={{ $json.detalhes[0].estoque_atual }}",
+              "type": "number"
+            },
+            {
+              "id": "64b6b200-cd38-4bb9-bff4-bb17417a44d8",
+              "name": "PEDIDO_FINAL",
+              "value": "={{ $json.detalhes[0].PEDIDO_FINAL }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1280,
+        336
+      ],
+      "id": "ec4ff10d-c67b-4696-bc08-98173f40f2cc",
+      "name": "normalizar nomes"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "detalhes[0].data",
+        "include": "allOtherFields",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1056,
+        48
+      ],
+      "id": "8dddbcca-5049-4f07-9828-39c8ec22ebbb",
+      "name": "interar linhas",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "mode": "chooseBranch"
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        2768,
+        448
+      ],
+      "id": "65a1e253-9d49-4be6-a347-50642c8d127d",
+      "name": "Merge - template e normalização"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $('copiar modelo').first().json.id }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Sheet",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        3088,
+        400
+      ],
+      "id": "e97965ff-886f-45bf-ad9f-014d0c18d627",
+      "name": "atualizar planilha - nova",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Xf7wuuJ78W7Z48CN",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Sheet",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "DATA": "={{ $('normalizar nomes').item.json.DATA }}",
+            "PRODUTO": "={{ $('normalizar nomes').item.json.PRODUTO }}",
+            "LOJA": "={{ $('normalizar nomes').item.json.LOJA }}",
+            "PREVISAO_VENDAS": "={{ $('normalizar nomes').item.json.PREVISAO_VENDAS }}",
+            "MARGEM_SEGURANCA": "={{ $('normalizar nomes').item.json.MARGEM_SEGURANCA }}",
+            "ESTOQUE_ALVO": "={{ $('normalizar nomes').item.json.ESTOQUE_ALVO }}",
+            "ESTOQUE_LOJA": "={{ $('normalizar nomes').item.json.ESTOQUE_LOJA }}",
+            "PEDIDO_FINAL": "={{ $('normalizar nomes').item.json.PEDIDO_FINAL }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "DATA",
+              "displayName": "DATA",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "PRODUTO",
+              "displayName": "PRODUTO",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "LOJA",
+              "displayName": "LOJA",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "PREVISAO_VENDAS",
+              "displayName": "PREVISAO_VENDAS",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "MARGEM_SEGURANCA",
+              "displayName": "MARGEM_SEGURANCA",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "ESTOQUE_ALVO",
+              "displayName": "ESTOQUE_ALVO",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "ESTOQUE_LOJA",
+              "displayName": "ESTOQUE_LOJA",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "PEDIDO_FINAL",
+              "displayName": "PEDIDO_FINAL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        3040,
+        32
+      ],
+      "id": "ad22f30d-e499-4432-b70d-97932568c854",
+      "name": "atualizar planilha -update",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Xf7wuuJ78W7Z48CN",
+          "name": "Google Sheets account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Ao clicar em Testar": {
+      "main": [
+        [
+          {
+            "node": "Definir Cenário",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Definir Cenário": {
+      "main": [
+        [
+          {
+            "node": "Chamar API Python",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ler o diretório do extrato": {
+      "main": [
+        [
+          {
+            "node": "ler planilha com novos dados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ler planilha com novos dados": {
+      "main": [
+        [
+          {
+            "node": "baixar entrada_nova",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "baixar entrada_nova": {
+      "main": [
+        [
+          {
+            "node": "tratar campos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "tratar campos": {
+      "main": [
+        [
+          {
+            "node": "Chamar API Python",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chamar API Python": {
+      "main": [
+        [
+          {
+            "node": "interar linhas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search files and folders -arquivo gerado1": {
+      "main": [
+        [
+          {
+            "node": "verifica se existe o arquivo1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "verifica se existe o arquivo1": {
+      "main": [
+        [
+          {
+            "node": "limpar planilha",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "copiar modelo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Merge - template e normalização",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Create spreadsheet": {
+      "main": [
+        []
+      ]
+    },
+    "limpar planilha": {
+      "main": [
+        [
+          {
+            "node": "atualizar planilha -update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "copiar modelo": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "normalizar nomes": {
+      "main": [
+        [
+          {
+            "node": "Search files and folders -arquivo gerado1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge - template e normalização",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "interar linhas": {
+      "main": [
+        [
+          {
+            "node": "normalizar nomes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge - template e normalização": {
+      "main": [
+        [
+          {
+            "node": "atualizar planilha - nova",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "atualizar planilha -update": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "ac1d3e8e-c0cf-481e-b1f2-e1c3f1d88a2d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "7e54442494989f846f89320145cbdd627e555f018703a79042b2e063c52cf1ee"
+  },
+  "id": "S63XCqviHCAuZNnS",
+  "tags": []
+}

@@ -1,0 +1,69 @@
+# notebook: 03_nav..., 03_xgb..., 06_rf..., app.py    |separação das bases em treino, validação e teste
+dates:
+  test_start_date: '2017-10-01'   # notebook 02
+  val_start_date: '2017-07-01'    # notebook 02
+  split_date: '2017-10-01'        # notebook 05
+
+#origem: train.csv ['treino': {01/01/2013, 30/06/2017}, 
+#                   'valida': {01/07/2017, 30/09/2017},
+#                   'teste':  {01/10/2017, 31/12/2017}]
+
+# 'situação real com dados do cliente': {01/01/2018 a 07/01/2018}    validacao.csv
+
+
+# notebook: 01, 07_rf..., 07_xgb...  | origem da base raw
+paths: 
+  origem_base_raw: ../data/raw/train.csv   # notebook 01  -será testado em treino/validação -base original raw
+  valida_base_raw: ../data/raw/test1.csv   # notebook 07  -será validado no treino com a base original raw
+
+# notebook: tools.py  -estrutura das colunas do arquivo original
+colunas_base_origem_raw:  
+  - date
+  - store
+  - item
+  - sales
+
+# zerar os processamentos
+excluir_arquivo_apartir:  ../data/raw/test1.csv    # se precisar iniciar o processo do zero  
+
+# zerar os processamentos
+arquivos_nao_excluir:
+  - '#dicionario_base.md'   # dicionario com as informações de todos os arquivos gerados e quem chama
+  - test1.csv   # notebook 07
+  - train.csv   # notebook 01
+  - test.csv    # notebook 09
+  - venda_prevista.csv  # notebook 09
+
+# notebook: 03, 05, 06
+excluir_colunas_modelo:
+  - date 
+  - sales
+  - id
+  - sales_log
+  - day_name
+  - holiday_name
+  - year
+
+# notebook: 04
+colunas_categoricas:
+     -  store
+     -  item
+     -  month
+     -  day 
+     -  day_of_week
+     -  day_of_year
+
+#🚩 notebook: 02, 03_nave..., 03_xgb..., 07_xgb..., tools.py
+ordenacao_base_busca:
+    - store
+    - item
+    - date
+
+target_projeto: 'sales_log'
+
+app:
+  margem_seguranca: 12
+  version: "5.2"
+  
+
+relatorio_saida_locker : resultado_final_retail-demand-forescasting

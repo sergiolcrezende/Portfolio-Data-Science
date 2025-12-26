@@ -1,0 +1,36 @@
+# --- SISTEMA E IDE ---
+.DS_Store
+.ipynb_checkpoints/
+__pycache__/
+*.log
+.vscode/
+retail-demand-forecasting.code-workspace
+
+# --- AMBIENTE VIRTUAL E SENHAS ---
+.env
+.venv/
+env/
+
+# --- DADOS (Mantém a pasta, ignora os arquivos) ---
+data/*
+!data/.gitkeep
+
+# --- MODELOS (Ignora os pesos pesados) ---
+models/*.pkl
+models/*.joblib
+models/*.json
+
+# --- TEMPORÁRIOS ---
+.temp*
+.bkp/
+old-*
+09_geracao_de_submissao_Kaggle_projeto.ipynb
+09a_geracao_de_submissao_Kaggle_outro.ipynb
+10_ensemble_final_kaggle.ipynb
+
+# Ignora arquivos que comecem com # (com escape correto)
+\#*
+retail-demand-forecasting.code-workspace
+simular/
+kaggle/
+.manual/*

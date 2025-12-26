@@ -1,0 +1,23 @@
+INFO:     Started server process [31244]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8005 (Press CTRL+C to quit)
+INFO:     127.0.0.1:54582 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54582 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54582 - "GET /run_stream/pre HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65078 - "GET /run_stream/prod HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59088 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60914 - "GET /run_stream/prod HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64650 - "GET /run_stream/prod HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50060 - "GET /run_stream/prod HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65449 - "GET / HTTP/1.1" 200 OK
+Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
+Traceback (most recent call last):
+  File "C:\Users\Sergio\AppData\Local\Programs\Python\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\Sergio\AppData\Local\Programs\Python\Python311\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+ConnectionResetError: [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo host remoto
+INFO:     127.0.0.1:53589 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55665 - "GET /run_stream/prod HTTP/1.1" 200 OK

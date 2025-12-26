@@ -1,0 +1,17 @@
+#executar: pip install -r requirements_dev.txt
+
+# Instala as dependências de produção primeiro 
+-r requirements.txt
+
+# Ferramentas de Pesquisa e Visualização (Só local)
+jupyter
+notebook
+matplotlib>=3.7.0
+seaborn>=0.12.0
+tabulate>=0.9.0
+ipykernel
+requests
+anywidget
+ipywidgets
+
+setuptools

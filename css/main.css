@@ -375,6 +375,20 @@ form,
 	margin-bottom: 3rem;
 }
 
+
+/**
+ * Força todas as imagens do portfólio a terem a mesma altura 
+ * -------------------------------------------------------------------
+ */
+.item-wrap img {
+    width: 100%;           /* Ocupa toda a largura da coluna */
+    height: 250px;         /* DEFINE A ALTURA FIXA (ajuste este valor conforme necessário) */
+    object-fit: cover;     /* A MÁGICA: Corta o excesso da imagem sem esticar */
+    object-position: top;  /* (Opcional) Foca o corte no topo da imagem. Pode usar 'center' também */
+}
+
+
+
 /**
  * floated image - (_document-setup.scss)  
  * -------------------------------------------------------------------

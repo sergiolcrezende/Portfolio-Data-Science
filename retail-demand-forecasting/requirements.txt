@@ -1,0 +1,23 @@
+fastapi>=0.100.0
+uvicorn
+pandas
+python-dotenv
+numpy<2.0.0
+# TRAVANDO VERSAO DO SCIKIT-LEARN PARA CORRIGIR O ERRO DO DEEPCHECKS
+scikit-learn==1.5.2
+deepchecks
+plotly
+statsmodels
+matplotlib
+
+# --- Dependências de Visualização (Deepchecks/Widgets) ---
+# Adicionado com base nos seus passos manuais
+anywidget
+ipywidgets<8
+
+# --- Engenharia de Features ---
+holidays>=0.30.0
+pyyaml
+
+# --- Modelo ---
+xgboost
