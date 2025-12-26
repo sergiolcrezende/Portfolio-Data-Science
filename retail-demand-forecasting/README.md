@@ -353,7 +353,7 @@ Para evoluir a solução e buscar reduções adicionais no erro (WMAE), os segui
 1.  **Clone o repositório:**
 
     ```bash
-    git clone [https://github.com/seu-usuario/retail-demand-forecasting.git](https://github.com/seu-usuario/retail-demand-forecasting.git)
+    git clone https://github.com/sergiolcrezende/Portfolio-Data-Science/tree/master/retail-demand-forecasting
     cd retail-demand-forecasting
     ```
 
