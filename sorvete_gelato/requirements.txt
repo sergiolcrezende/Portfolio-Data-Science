@@ -1,0 +1,17 @@
+## pacote
+pandas
+# python-dotenv
+## estatistica
+scikit-learn
+## azure
+azure-identity 
+azure-ai-ml
+## azure no vscode
+azure-identity-broker
+## conectar azure
+azure-mgmt-resource
+## orquestrador
+# mlflow
+pyyaml
+
+

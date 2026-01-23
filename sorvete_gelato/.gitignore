@@ -1,0 +1,30 @@
+# --- SISTEMA E IDE ---
+.DS_Store
+.ipynb_checkpoints/
+__pycache__/
+*.log
+.vscode/
+.amlignore
+
+# --- AMBIENTE VIRTUAL E SENHAS ---
+.env
+.venv/
+env/
+
+# --- DADOS (Mantém a pasta, ignora os arquivos) ---
+data/*
+!data/.gitkeep
+
+# --- MODELOS ---
+models/*.pkl
+models/*.joblib
+models/*.json
+mlruns/*
+mlflow.db
+
+# --- TEMPORÁRIOS ---
+.temp*/
+.bkp/
+.DELETAR/
+\#*
+*.code-workspace

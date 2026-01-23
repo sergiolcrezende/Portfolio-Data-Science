@@ -1,0 +1,10 @@
+Comentários:
+
+Este projeto visa um estudo de caso que envolve a otimização de estoque na sorveteria Gelato Mágico, localizada no litoral. Utilizando Azure Machine Learning e recursos de AutoML, o modelo prevê a demanda diária baseada na temperatura, reduzindo o desperdício de insumos e maximizando a receita em dias de alta procura.
+
+A Gelato Mágico enfrenta o desafio clássico de produtos perecíveis sensíveis ao clima em uma cidade litorânea. A falta de planejamento baseado em dados gera dois cenários críticos para a operação:
+
+Desperdício: Produção excessiva em dias frios ou de baixa demanda, resultando em perda de insumos e produto final (sorvete derretido).
+Perda de Receita: Produção insuficiente em dias quentes, resultando em perda de vendas por falta de estoque (Stockout).
+
+O arquivo README.md tem mais informações.

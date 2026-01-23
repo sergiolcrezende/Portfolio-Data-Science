@@ -1,0 +1,22 @@
+# environment
+name: "meu-ambiente-customizado-sorvete"
+description: "Ambiente customizado sorvete com requisitos instalados"
+conda_file : "conda_dependencies.yml"
+image: "mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04"
+
+# command
+code: "./src"
+compute: "cpu-cluster-sorvete"
+experiment_name: "experimento-sorvetes"
+display_name: "preparando-imagem-infra-sorvete"
+
+# variaveis
+env_vars:
+  base_dados: "data/raw/gelato_magico_sales_data.csv"
+  file_config: "src/config.json"
+  file_ml: "sorvetes_training.py"
+
+
+
+
+

@@ -1,0 +1,12 @@
+name: projeto_sorvete_env
+channels:
+  - conda-forge
+  - default
+dependencies:
+  - python=3.8
+  - pip:
+    - azureml-defaults
+    - pandas
+    - scikit-learn
+    - mlflow
+    - pyyaml
