@@ -1,0 +1,41 @@
+# --- SISTEMA E IDE ---
+.DS_Store
+.ipynb_checkpoints/
+__pycache__/
+*.log
+.vscode/
+Agro_predictor_commodities_com_IA.code-workspace
+
+# --- AMBIENTE VIRTUAL E SENHAS ---
+.env
+.venv/
+env/
+
+# --- DADOS (Mantém a pasta, ignora os arquivos) ---
+data/postgres_storage/*
+!data/.gitkeep
+
+# --- TEMPORÁRIOS ---
+.temp*
+
+# Ignora arquivos que comecem com # (com escape correto)
+\#*
+teste.py
+pesquisa.txt
+
+notebooks/
+report/
+TESTE_*
+_temp/
+test_*
+teste*
+mlruns/
+mlflow/
+report/
+.cache/
+#leiame.txt
+.ash_history
+Agro_predictor_commodities_com_IA*
+mlflow.db
+.dockerignore
+.env
