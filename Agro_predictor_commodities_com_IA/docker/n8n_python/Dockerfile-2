@@ -1,0 +1,37 @@
+# Dockerfile-2 (n8n_python) atualizado
+FROM docker.n8n.io/n8nio/n8n:1.123.9
+
+USER root
+
+# Adicionado gfortran, openblas-dev e libstdc++ (essenciais para scikit-learn/scipy)
+RUN apk add --update --no-cache \
+    python3 \
+    py3-pip \
+    python3-dev \
+    postgresql-dev \
+    build-base \
+    cmake \
+    g++ \
+    make \
+    linux-headers \
+    musl-dev \
+    gfortran \
+    openblas-dev \
+    libstdc++
+
+# Configurar o ambiente virtual
+RUN python3 -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Atualizar ferramentas de build
+RUN pip install --no-cache-dir --upgrade pip wheel "setuptools<70.0.0"
+
+# DICA: Tentar instalar o scikit-learn sozinho primeiro para isolar erros
+# Se falhar aqui, o log será mais limpo.
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Ajustar permissões para o usuário 'node'
+RUN chown -R node:node /opt/venv
+
+USER node

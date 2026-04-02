@@ -1,0 +1,67 @@
+
+
+OBJETIVO:  gravar os dados para que o looker mostre no dashboard
+origem: view finance.vw_looker_agro_dashboard
+
+
+-- Script para equalizar a tabela Neon com a View Local do Postgres
+DROP TABLE IF EXISTS finance.agro_trade_data;
+
+CREATE TABLE finance.agro_trade_data (
+    id SERIAL PRIMARY KEY,
+
+    record_date DATE NOT NULL,
+    ticker  VARCHAR(20) NOT NULL,
+
+    -- Informações de Preço
+    preco_usd   NUMERIC(15, 4),
+
+    -- Buscamos o preço em BRL da view consolidada já existente
+    preco_brl   NUMERIC(15, 4),
+    preco_original   NUMERIC(15, 4),    
+    unidade_medida  VARCHAR(20),
+    
+    -- Câmbio
+    taxa_cambio_usd_brl NUMERIC(15, 4),
+
+    -- Informações Climáticas da Região de Foco
+    regiao_foco_clima    VARCHAR(50) NOT NULL,
+    temp_max    NUMERIC(5, 2),
+    chuva_diaria    NUMERIC(10, 2),
+    chuva_acumulada_7d  NUMERIC(10, 2),
+    umidade_solo    NUMERIC(10, 2),
+    anomalia_termica    NUMERIC(10, 2),
+
+    -- Indicadores de Risco e Volatilidade
+    volatility_7d   NUMERIC(10, 4),
+    variacao_diaria_pct NUMERIC,
+    is_extreme_heat BOOLEAN,
+    is_drought_risk BOOLEAN,
+    categoria_clima VARCHAR(50),
+
+    -- Metas de Performance (Baseline do desafio RMSE)
+    baseline_rmse_referencia    NUMERIC(10, 4),
+    meta_rmse_alvo  NUMERIC(10, 4), -- Adicionada a vírgula aqui
+
+    -- Metadados de controle
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    -- Restrição para evitar duplicidade (Data + Ticker)
+    CONSTRAINT unique_daily_ticker UNIQUE (record_date, ticker)
+);
+
+
+
+
+
+---
+-- Verifica se o schema existe
+SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'finance';
+
+-- Verifica se a tabela existe dentro do schema
+SELECT table_name FROM information_schema.tables 
+WHERE table_schema = 'finance' AND table_name = 'agro_trade_data';
+
+
+---
+SELECT * FROM finance.agro_trade_data

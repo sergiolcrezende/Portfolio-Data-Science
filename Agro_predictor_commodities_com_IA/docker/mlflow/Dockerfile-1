@@ -1,0 +1,10 @@
+# Usa a imagem oficial como base 
+FROM ghcr.io/mlflow/mlflow:latest
+# Instala o driver do PostgreSQL 
+RUN pip install psycopg2-binary
+
+# Garante que a pasta de artefatos existe e tem permissão
+RUN mkdir -p /mlflow/artifacts && chmod -R 777 /mlflow/artifacts
+
+# Expõe a porta (Boa prática documentar)
+EXPOSE 5000

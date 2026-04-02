@@ -1,0 +1,159 @@
+version: '3.8'
+
+services:
+  # --- Serviço 1: Banco de Dados Compartilhado ---
+  postgres:
+    image: postgres:17
+    container_name: agro_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD_MF}
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    volumes: 
+      - ./data/postgres_storage:/var/lib/postgresql/data
+      - ./init_scripts:/docker-entrypoint-initdb.d
+    networks:
+      - agro_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+ 
+  # --- Serviço 2: MLflow ---   o banco e mlflow estando no docker então a porta será 5432
+  mlflow:
+    build: 
+      context: .
+      dockerfile: docker/mlflow/Dockerfile-1
+    container_name: agro_mlflow
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "5000:5000"
+    environment:
+      - BACKEND_STORE_URI=postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD_MF}@postgres:5432/mlflow_db
+      - DEFAULT_ARTIFACT_ROOT=file://${PATH_EXPERIMENTO} # UNIFICADO com o local real
+    volumes:
+      - mlflow_artifacts:${PATH_EXPERIMENTO}
+    networks:
+      - agro_network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    # COMANDO CORRIGIDO: Agora ele usa as variáveis e a flag de artefatos
+    command: >
+        mlflow server
+        --backend-store-uri postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD_MF}@postgres:5432/mlflow_db
+        --host 0.0.0.0
+        --serve-artifacts
+        --artifacts-destination ${PATH_EXPERIMENTO}
+
+  # --- Serviço 3: n8n ---
+  n8n:
+    image: agro_n8n_custom:1.123.9
+    build: 
+      context: ./docker/n8n_python
+      dockerfile: Dockerfile-2
+    container_name: agro_n8n
+    restart: always
+    env_file:            
+      - .env             
+    ports:
+      - "5680:5678"
+    environment:
+      - N8N_PORT=5678
+      - N8N_LISTEN_ADDRESS=0.0.0.0
+      - N8N_HOST=slcr.agendatech.org
+      - N8N_PROTOCOL=https
+      - WEBHOOK_URL=https://slcr.agendatech.org/
+      - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
+      - N8N_PYTHON_BINARY=/opt/venv/bin/python
+      - NODE_FUNCTION_ALLOW_EXTERNAL=*
+      - N8N_PROXY_HOPS=1
+      - N8N_RUNNERS_ENABLED=true
+      - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
+      - N8N_GIT_NODE_DISABLE_BARE_REPOS=true
+      # Conexão do n8n (Sistema) - Aponta para n8n_db    --n8n e postgres esta no docker
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=n8n_db
+      - DB_POSTGRESDB_USER=${POSTGRES_USER}
+      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD_MF}
+      
+      # Variáveis para seus scripts Python (Business)
+      - DB_DW_HOST=postgres
+      - DB_DW_NAME=agro_dw
+      - DB_DW_USER=${POSTGRES_USER}
+      - DB_DW_PASS=${POSTGRES_PASSWORD_MF}
+      
+      - MLFLOW_TRACKING_URI=http://agro_mlflow:5000
+    volumes:
+      - .:/home/node
+      - n8n_data:/home/node/.n8n
+      - mlflow_artifacts:${PATH_EXPERIMENTO}
+
+    networks:
+      - agro_network
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+ 
+# --- Serviço 4: FastAPI Predictor ---
+  api_agro:
+    build:  
+      context: .
+      dockerfile: Dockerfile 
+    container_name: agro_api
+    restart: always
+    environment:
+      - PYTHONPATH=/app:/app/src
+      - MLFLOW_TRACKING_URI=http://agro_mlflow:5000
+      - DB_DW_HOST=postgres
+      - DB_DW_NAME=agro_dw
+      - DB_DW_USER=${POSTGRES_USER}
+      - DB_DW_PASS=${POSTGRES_PASSWORD_MF}
+      - MY_EXPERIMENT=${MY_EXPERIMENT}
+    ports:
+      - "${API_PORT}:8008"
+    command: >
+      sh -c "sleep 5 && uvicorn src.app:app --host 0.0.0.0 --port 8008 --reload"
+    networks:
+      - agro_network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mlflow:
+        condition: service_started
+    volumes:
+      - .:/app
+      - mlflow_artifacts:${PATH_EXPERIMENTO}
+
+
+# --- Cloudflare Tunnel ---
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: agro_tunnel
+    restart: always
+    command: tunnel run
+    extra_hosts:
+      - "host.docker.internal:host-gateway" # Permite que o container acesse o localhost da máquina
+    environment:
+      - TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
+    networks:
+      - agro_network
+    depends_on:
+      - n8n
+
+volumes:
+  n8n_data:
+  postgres_data:
+  mlflow_artifacts:
+
+networks:
+  agro_network:
+    driver: bridge

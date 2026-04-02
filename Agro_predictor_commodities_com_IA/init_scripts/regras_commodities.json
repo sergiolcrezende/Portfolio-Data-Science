@@ -1,0 +1,98 @@
+{
+    "BGI": {
+        "b3_ticker": "BGI",
+        "yfinance_ticker": "LE=F", 
+        "desc": "Boi Gordo (Proxy: Live Cattle EUA)",
+        "currency_source": "USD",
+        "name": "Boi Gordo",
+        "region": "Aracatuba, SP",
+        "currency": "BRL",
+        "unit": "Arroba (@)"
+    },
+    "CCM": { 
+        "b3_ticker": "CCM",
+        "yfinance_ticker": "ZC=F", 
+        "desc": "Milho (Ref: Chicago)",
+        "currency_source": "USD",
+        "name": "Milho",
+        "region": "Campinas, SP",
+        "currency": "BRL",
+        "unit": "Saca 60kg"
+    },
+    "SJC": { 
+        "b3_ticker": "SJC",
+        "yfinance_ticker": "ZS=F",
+        "desc": "Soja (Ref: Chicago)",
+        "currency_source": "USD",
+        "name": "Soja CME",
+        "region": "Sorriso, MT",
+        "currency": "USD",
+        "unit": "Saca 60kg"		
+    },
+    "ICF": { 
+        "b3_ticker": "ICF",
+        "yfinance_ticker": "KC=F",
+        "desc": "Café Arábica (Ref: Nova York)",
+        "currency_source": "USD",
+        "name": "Café Arábica",
+        "region": "Varginha, MG",
+        "currency": "USD",
+        "unit": "Saca 60kg"
+    },
+    "DOLAR": {
+        "b3_ticker": "DOL", 
+        "yfinance_ticker": "BRL=X",
+        "desc": "Taxa de Câmbio USD/BRL",
+        "currency_source": "BRL",
+        "name": "Dólar Comercial (Cheio)",
+        "region": "Brasilia, DF", 
+        "currency": "BRL",
+        "unit": "US$ 50.000" 
+    },
+    "ETH": {
+        "b3_ticker": "ETH", 
+        "yfinance_ticker": "CU=F",
+        "desc": "Etanol (Proxy: Chicago Corn Ethanol)",
+        "currency_source": "USD",
+        "name": "Etanol Hidratado",
+        "region": "Ribeirao Preto, SP",
+        "currency": "BRL",
+        "unit": "m3"
+  },
+  "WDO": {
+        "b3_ticker": "WDO", 
+        "yfinance_ticker": "BRL=X", 
+        "desc": "Mini Dólar Futuro (Proxy: Spot USD/BRL)",
+        "currency_source": "BRL",  
+        "name": "Mini Dólar",
+        "region": "Brasilia, DF",
+        "currency": "BRL",
+        "unit": "Pontos"
+  },
+  "SJC": {
+    "b3_ticker": "SJC", 
+    "yfinance_ticker": "ZS=F",
+    "desc": "Soja CME (Espelho: Chicago)",
+    "currency_source": "USD",      
+    "name": "Soja CME",
+    "region": "Sorriso, MT",
+    "currency": "USD",
+    "unit": "Saca 60kg"
+  },
+  "SOY": {
+    "b3_ticker": "SOY", 
+    "yfinance_ticker": "ZS=F", 
+    "desc": "Soja Exportação (Proxy: Chicago)",
+    "currency_source": "USD",      
+    "name": "Soja Exportação (FOB Santos)",
+    "region": "Santos, SP",
+    "currency": "USD",
+    "unit": "Tonelada (34t)"
+  }
+}
+
+
+
+
+
+

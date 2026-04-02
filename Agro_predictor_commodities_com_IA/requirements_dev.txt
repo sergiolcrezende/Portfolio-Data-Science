@@ -1,0 +1,14 @@
+#executar: pip install -r requirements_dev.txt
+
+# Puxa todas as dependências de produção primeiro
+# -r requirements.txt
+-r docker/n8n_python/requirements.txt
+
+# Ferramentas de Análise e Visualização (Só para seu PC)
+jupyter==1.0.0
+matplotlib==3.7.2
+seaborn==0.12.2
+
+# Ferramentas de Qualidade de Código (Opcional, mas recomendado)
+black
+flake8

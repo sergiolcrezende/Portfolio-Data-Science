@@ -1,0 +1,158 @@
+{
+  "name": "Agro_Predictor_Daily_Cycle",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [
+        -288,
+        -80
+      ],
+      "id": "ec940c57-6fd3-4fa8-97b9-83504fb19830",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:8005/predict",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"ticker\": \"ZS=F\"\n}",
+        "options": {}
+      },
+      "name": "Chamar_API_Previsao",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        384,
+        0
+      ],
+      "id": "a9ddc5a3-8537-4ea8-b705-d627a81bf049"
+    },
+    {
+      "parameters": {
+        "command": "ls -R /home/node/src"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        16,
+        -336
+      ],
+      "id": "b226afb3-dd41-4735-85b7-8cfb125f01a3",
+      "name": "Execute Command -teste ls"
+    },
+    {
+      "parameters": {
+        "command": "cd /home/node/src &&  python3 etl_update.py\n"
+      },
+      "name": "Executar_ETL_Agro -etl",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        64,
+        0
+      ],
+      "id": "6f76d612-d506-4c15-aed2-2ac441a460b6",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "content": "## Valida diretório no docker",
+        "height": 288,
+        "width": 352
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -80,
+        -416
+      ],
+      "typeVersion": 1,
+      "id": "dbf37d17-d840-466e-ac0b-779fb83bfa50",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## executa extração na bolsa e executa modelo de machine learning",
+        "height": 272,
+        "width": 752,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -80,
+        -96
+      ],
+      "typeVersion": 1,
+      "id": "784bde8c-2045-495f-9e7b-fcbae5faaa4c",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "command": "find /home/node -name map_commodities.json 2>/dev/null || echo \"Busca finalizada\""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        256,
+        -336
+      ],
+      "id": "f9ed8dac-dcb4-4b0b-a32d-cc25487c8553",
+      "name": "Execute Command"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Executar_ETL_Agro -etl",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Executar_ETL_Agro -etl": {
+      "main": [
+        [
+          {
+            "node": "Chamar_API_Previsao",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Command -teste ls": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "989aae50-907d-492f-8400-a3627781b242",
+  "meta": {
+    "instanceId": "2ac264a88804754f513c62dc15bb449cc12598d3ddbb609635dd547768fc6cdb"
+  },
+  "id": "8lqk1qUNC4SCW5xF",
+  "tags": []
+}
