@@ -10,5 +10,5 @@ data/processed/
 *.pem
 *.temp_del*/
 *.egg-info/
-*.temp/
+.temp/
 .git/
