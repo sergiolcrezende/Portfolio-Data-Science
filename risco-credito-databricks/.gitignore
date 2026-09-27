@@ -9,6 +9,6 @@ data/processed/
 .env
 *.pem
 *.temp_del*/
+*.temp/
 *.egg-info/
-.temp/
 .git/
